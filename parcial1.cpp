@@ -23,12 +23,12 @@ void leerPuntos(Point puntos[], int &n) //Puntos es un array
 {
     char respuesta;
     cout << "¿Desea ingresar los puntos manualmente? (s/n): "<<endl;
-    char *respusuario = new char(n);
-    cin>>respusuario;
+    cin>>respuesta;
+    
     // Leer la respuesta del usuario
 
     // Completar: Verificar si la respuesta es 's' o 'n', tener en cuenta mayúsculas y minúsculas
-    if (respusuario == "s" || respusuario == "S") // Si no es s o S se toma como que el usuario no quiere ingresar los puntos
+    if (respuesta == 's' || respuesta == 'S') // Si no es s o S se toma como que el usuario no quiere ingresar los puntos
     {
         // Completar: Leer las coordenadas de cada punto
         for (int i=0;i<n;i++){
@@ -85,7 +85,7 @@ double calcularDistanciaMasCercana(Point puntos[], int n, const Point &pUsuario,
         double distancia;
         distancia=(calcularDistancia(p1,p2));
 
-        if(distanciaMinima==0){
+        if(distanciaMinima==0 && i==0){
             distanciaMinima=distancia;
             indiceMasCercano=i;
         }
@@ -110,6 +110,22 @@ void mostrarResultado(Point puntos[], int indiceMasCercano, double distancia)
 {
     cout << "El punto más cercano es: (" << puntos[indiceMasCercano].x << ", " << puntos[indiceMasCercano].y << ")\n";
     cout << "La distancia al punto más cercano es: " << distancia << endl;
+}
+
+/*BONO:
+Escribir una función que reciba un arreglo de puntos y devuelva la distancia total de los puntos que conforman el arreglo si estos fueran recorridos en orden.
+*/
+
+double distanciaArray(Point puntos[], int n, const Point &pUsuario){
+    double distpuntos;
+
+    for (int i=0; i<n; i++){
+        double distpuntos=calcularDistancia(puntos[i],pUsuario);
+        cout<<"La distancia "<<i<<" es: "<<distpuntos<<endl;
+    }
+
+    return distpuntos;
+    
 }
 
 int main()
@@ -147,9 +163,9 @@ int main()
     // Mostrar el resultado
     mostrarResultado(puntos, indiceMasCercano, distanciaMinima);
 
+    //Distancia de todos los puntos
+    distanciaArray(puntos, n, pUsuario);
+
     return 0;
 }
 
-/*BONO:
-Escribir una función que reciba un arreglo de puntos y devuelva la distancia total de los puntos que conforman el arreglo si estos fueran recorridos en orden.
-*/
